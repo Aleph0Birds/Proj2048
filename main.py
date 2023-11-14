@@ -1,4 +1,3 @@
-from utility import getInputs
 
 def main():
     pass
