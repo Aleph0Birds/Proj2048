@@ -31,6 +31,43 @@ class Matrix:
         out.mat = _list
         return out
     
+    @staticmethod
+    def createIdentity(n: int):
+        """Creates an n by n identity matrix
+        Parameters
+        ----------
+        n : int
+            no. of row and column
+
+        Returns
+        -------
+        Matrix
+            an nxn identity matrix
+        """
+        mat = Matrix(n)
+        for i in range(n):
+            mat[i] = 1
+        return mat
+
+    @staticmethod
+    def createZero(n: int):
+        """Creates an n by n zero matrix
+
+        Parameters
+        ----------
+        n : int
+            no. of row and column
+
+        Returns
+        -------
+        Matrix
+            an nxn zero matrix
+        """
+        mat = Matrix(n)
+        for i in range(n):
+            mat[i] = 0
+        return mat
+    
     def toList2D(self) -> list[list]:
         """Convert the current Matrix to a 2D list
 
@@ -42,11 +79,14 @@ class Matrix:
         return self.mat
     
     def __add__(self, other):
-        if not type(other) == Matrix:
+        if type(other) in [int, float]:
             return self.__addEach(other)
+        
+        if type(other) != Matrix: 
+            raise TypeError(f"Cannot perform addition between Matrix and {type(other)}")
 
         if self.size() != other.size(): 
-            return self.mat
+            raise ValueError(f"Cannot add matrices with different size.")
         
         out = []
         for i in range(self.row):
@@ -69,11 +109,14 @@ class Matrix:
 
                 
     def __mul__(self, other):
-        if not type(other) == Matrix:
+        if type(other) in [int, float]:
             return self.__mulEach(other)
-            
+        
+        if type(other) != Matrix: 
+            raise TypeError(f"Cannot perform addition between Matrix and {type(other)}")
+        
         if self.size()[1] != other.size()[0]: #or self.size()[1] != other.size()[0]:
-            return "Error lol"
+            raise ValueError(f"Cannot multiply Matrix with {self.col} columns to Matrix with {other.row} rows.")
         
         out = []
         for i in range(self.row):
@@ -150,3 +193,5 @@ class Matrix:
         
         res = ', \n '.join(res)
         return f"[\n {res}\n]"
+
+Matrix.Identity2x2 = Matrix(2, 2)
