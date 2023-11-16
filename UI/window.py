@@ -1,15 +1,90 @@
 import tkinter as tk
 
+WinWidth: int = 600
+WinHeight: int = 600
+GrayColor = "#323232"
+BorderColor = "#b8aea1"
+BackgroundColor = "#cac1b5"
+
 class window:
     def __init__(self) -> None:
         pass
 
-    def init(self) -> None:
-        self.win = tk.Tk()
+    def init(self, tickRate: int = 30) -> None:
+        win = tk.Tk()
 
-        self.win.geometry("606x606")
-        self.win.resizable(False, False)
-        self.win.config(bg="#323232")
+        win.geometry(f"{WinWidth}x{WinHeight}")
+        win.resizable(False, False)
+        win.config(bg=GrayColor)
+        win.grid_columnconfigure(0, weight=1)
+        win.grid_rowconfigure(0, weight=1)
+        self.tickRate = tickRate
+        self.deltaTimeSeconds = 1 / tickRate
+        self.updating = False
+        self.updateFx: list[function] = []
+
+        win.protocol("WM_DELETE_WINDOW", self.exit)
+
+        self.keysPressed: list[str] = []
+        win.bind("<KeyPress>", lambda event: self.keysPressed.append(event.keysym))
+        self.win = win
+    
+    def subscribeUpdate(self, function) -> None:
+        """Subscribe a function to be updated
+
+        Parameters
+        ----------
+        function : function
+        """
+        self.updateFx.append(function)
+
+
 
     def mainloop(self) -> None:
-        self.win.mainloop()
+        """Main loop of the window, should be called after initialized, suppresses code execution outside update functions."""
+
+        self.updating = True
+        if len(self.updateFx) <= 0:
+            self.win.mainloop()
+        else:
+            import time
+            while True:
+                if not self.updating: break
+                self.win.update()
+
+                for fx in self.updateFx:
+                    fx()
+
+                self.__clearKeys__()
+                time.sleep(self.deltaTimeSeconds)
+
+    def getPressedKeys(self) -> list[str]:
+        """Gets a list of symbols of key pressed
+
+        Returns
+        -------
+        list[str]
+            a list of keys pressed at the moment
+        """
+        return self.keysPressed
+    
+    def isKeyDown(self, key: str) -> bool:
+        """Check if a key is down, case matters
+
+        Parameters
+        ----------
+        key : str
+            key to be checked, i.e. "a" != "A", "Enter"
+
+        Returns
+        -------
+        bool
+        """
+        return bool(key) and (key in self.keysPressed)
+    
+    def __clearKeys__(self) -> None: self.keysPressed.clear()
+
+    def exit(self) -> None:
+        """Exits the window update loop"""
+        self.updating = False
+        self.win.destroy()
