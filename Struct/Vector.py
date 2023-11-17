@@ -1,18 +1,18 @@
 from typing import overload
 
 class Vector:
-    @overload
-    def __new__(self, x: float | int, y: float | int):
-        ...
 
-    @overload
-    def __new__(self, value: float | int):
-        ...
-
-    def __new__(self, x: float | int, y: float | int | None = None):
+    def __init__(self, x: float | int, y: float | int | None = None):
         self.x = x 
         self.y = x if y is None else y
-        return self
+    
+    def __str__(self):
+        return f"Vec({self.x}, {self.y})"
+    
+    def __repr__(self) -> str:
+        return f"V({self.x}, {self.y})"
 
-Vector.Zero: Vector = Vector(0, 0)
-Vector.One: Vector = Vector(1, 1)
+Zero = Vector(0)
+One = Vector(1)
+Vector.Zero: Vector = Zero
+Vector.One: Vector = One
