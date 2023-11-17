@@ -3,7 +3,7 @@ def main():
 
     useUI()
 
-# range: 2^1 - 2^11
+# range: 2^1 - 2^11+ -> 2 - 2048+
 def update() -> None:
     """called each tick by the window, by default 30 ticks per second"""
     if win.isKeyDown("Escape"):

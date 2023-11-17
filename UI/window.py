@@ -38,7 +38,16 @@ class window:
         """
         self.updateFx.append(function)
 
-
+    def initialize(self, *func) -> None:
+        """calls functions after window initialized
+        
+        Parameters
+        ----------
+        *func : function
+            arguments of function
+        """
+        for fx in func:
+            fx()
 
     def mainloop(self) -> None:
         """Main loop of the window, should be called after initialized, suppresses code execution outside update functions."""
