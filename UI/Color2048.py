@@ -29,6 +29,6 @@ class Color:
         ValueError
             if n is smaller than 0
         """
-        if n is not int: raise TypeError(f"Hiya n should be an integer just like there is no platform 9¾")
+        if not isinstance(n, int): raise TypeError(f"Hiya n should be an integer not {type(n)} just like there is no platform 9¾")
         if n < 0: raise ValueError(f"Hiya you want {n} of the colors that's too small bruh.")
         return Color.colors[-1] if n >= len(Color.colors) else Color.colors[n]
