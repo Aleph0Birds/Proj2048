@@ -1,23 +1,21 @@
 import tkinter as tk
 
-WinWidth: int = 600
+WinWidth: int = 450
 WinHeight: int = 600
 GrayColor = "#323232"
 BorderColor = "#b8aea1"
 BackgroundColor = "#cac1b5"
 
 class window:
-    def __init__(self) -> None:
-        pass
-
-    def init(self, tickRate: int = 30) -> None:
+    def __init__(self, tickRate: int = 30) -> None:
         win = tk.Tk()
 
         win.geometry(f"{WinWidth}x{WinHeight}")
         win.resizable(False, False)
-        win.config(bg=GrayColor)
-        win.grid_columnconfigure(0, weight=1)
-        win.grid_rowconfigure(0, weight=1)
+        win.config(bg=BackgroundColor)
+        win.grid_columnconfigure(2, weight=1)
+        win.grid_columnconfigure(3, weight=1)
+        # win.grid_rowconfigure(0)
         self.tickRate = tickRate
         self.deltaTimeSeconds = 1 / tickRate
         self.updating = False

@@ -13,13 +13,14 @@ def update() -> None:
 def useUI():
     from UI.boardgrid import boardgrid 
     from UI.window import window
+    from UI.indicator import indicator
     
     global win
     global board
+    global indicate
     win = window()
-    win.init()
-    board = boardgrid()
-    board.initialize(win)
+    board = boardgrid(win)
+    indicate = indicator(win)
     win.subscribeUpdate(update)
     win.mainloop()
 
