@@ -3,8 +3,11 @@ from Struct.Vector import Vector
 from Struct.Matrix import Matrix
 import tkinter as tk
 
-padding = 10
-size = Vector(win.WinWidth / 4 - padding)
+padding = 36
+borderWidth = 10
+dw = borderWidth / 4
+dp = padding / 2
+size = Vector((win.WinWidth - padding) / 4)
 
 
 class boardgrid:
@@ -22,12 +25,12 @@ class boardgrid:
     def initGrid(self, canvas: tk.Canvas):
         for i in range(self.grid.row):
             for j in range(self.grid.col):
-                r = canvas.create_rectangle(size.x * i + 2 + padding * 2 ,
-                                            (size.y * j + 2 + padding * 2),
-                                            size.x * (i + 1) + 2 + padding * 2,
-                                            (size.y * (j + 1) + 2 + padding * 2),
+                r = canvas.create_rectangle(size.x * i + dp,
+                                            (size.y * j + dp),
+                                            size.x * (i + 1) + dp,
+                                            (size.y * (j + 1) + dp),
                                             fill=win.BoardColor, outline=win.BorderColor,
-                                            width=8)
+                                            width=borderWidth)
                 self.grid[i][j] = r
 
     def updateGrid(self, dir: Vector):

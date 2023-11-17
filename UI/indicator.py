@@ -2,24 +2,24 @@ import UI.window as win
 import tkinter as tk
 import tkinter.font as tkf
 
-SBWidth = 12
+SBWidth = 20
 SBHeight = 20
 TitleColor = "#7a6e66"
 
 class indicator:
     def __init__(self, window: win.window) -> None:
-        titleFont = tkf.Font(window.win, family="Segoe UI Semibold", size=32, weight="bold")
+        titleFont = tkf.Font(window.win, family="Segoe UI Semibold", size=28, weight="bold")
         title = tk.Label(window.win, foreground=TitleColor, background=win.BackgroundColor, 
                          text="2048")
         title.configure(font=titleFont)
-        title.grid(row = 0, column = 0, columnspan=2, pady=SBHeight, padx=SBWidth - 4)
+        title.grid(row = 0, column = 0, columnspan=2, pady=SBHeight)
 
         curScore = tk.Label(window.win, background= win.BorderColor, foreground=win.BackgroundColor,
-                            text="Score\n0", width=SBWidth, anchor="n")
+                            text="Score\n0", width=SBWidth, anchor="n", padx=SBWidth/4)
         curScore.grid(row = 0, column=2, sticky="ne", pady=24)
 
         bestScore = tk.Label(window.win, background= win.BorderColor, foreground=win.BackgroundColor,
-                             text="Best\n0", width=SBWidth, anchor="n")
+                             text="Best\n0", width=SBWidth, anchor="n", padx=SBWidth/4)
         bestScore.grid(row = 0, column=3, sticky="nw", padx=16, pady=24)
 
         uselessLabel = tk.Label(window.win,
