@@ -1,5 +1,3 @@
-from Struct.Matrix import Matrix
-
 def main():
     useUI()
     initializeBoard()
@@ -10,6 +8,13 @@ def update() -> None:
     """called each tick by the window, by default 30 ticks per second"""
     if win.isKeyDown("Escape"):
         win.exit()
+
+    for dir in ["Up", "Down", "Right", "Left"]:
+        ### Task 3 ###
+        # wait for user to release the keys
+        if win.isKeyUp(dir):
+            board.gravity(dir)
+            break
     # start working here
 
 ### Task 10 ###
@@ -27,22 +32,10 @@ def useUI():
     win.subscribeUpdate(update)
 
 def initializeBoard():
-    ### Task 1 ###
+    ### Task 1 + Task 2 ###
+    from board import Board
     global board 
-    board = Matrix(4, 4)
-    ### Task 2 ###
-    from random import choice
-    from helper.utility import chance
-    n = 0
-    while n < 2:
-        r, c = choice(range(4)), choice(range(4))
-        if board[r][c] != 0:
-            continue
-        
-        board[r][c] = bool(chance(50)) + 1
-        n += 1
-        
-    boardGrid.updateBoard(board)
+    board = Board(boardGrid)
 
 if __name__ == "__main__":
     main()

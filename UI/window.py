@@ -26,7 +26,9 @@ class window:
         win.protocol("WM_DELETE_WINDOW", self.exit)
 
         self.keysPressed: list[str] = []
+        self.keysReleased: list[str] = []
         win.bind("<KeyPress>", lambda event: self.keysPressed.append(event.keysym))
+        win.bind("<KeyRelease>", lambda event: self.keysReleased.append(event.keysym))
         self.win = win
     
     def subscribeUpdate(self, function) -> None:
@@ -40,7 +42,7 @@ class window:
 
     def initialize(self, *func) -> None:
         """calls functions after window initialized
-        
+
         Parameters
         ----------
         *func : function
@@ -91,7 +93,21 @@ class window:
         """
         return bool(key) and (key in self.keysPressed)
     
-    def __clearKeys__(self) -> None: self.keysPressed.clear()
+    def isKeyUp(self, key: str) -> bool:
+        """Check if a key is realeased, case matters
+
+        Parameters
+        ----------
+        key : str
+            key to be checked, i.e. "a" != "A", "Enter"
+
+        Returns
+        -------
+        bool
+        """
+        return bool(key) and (key in self.keysReleased)
+    
+    def __clearKeys__(self) -> None: self.keysPressed.clear(); self.keysReleased.clear()
 
     def exit(self) -> None:
         """Exits the window update loop"""

@@ -37,11 +37,11 @@ class boardgrid:
     def updateBoard(self, board: Matrix):
         for i in range(board.row):
             for j in range(board.col):
-                num = board[i][j]
+                num = board[j][i]
                 if num != 0:
                     color = Color.getColor(num)
                     fcolor = "white" if num > 2 else "#7a6e66"
-                    self.grid[i][j] = (self.__createRect(self.canvas, i, j, color),
+                    self.grid[j][i] = (self.__createRect(self.canvas, i, j, color),
                                         self.__createFont(self.canvas, i, j, str(pow(2, num)), fcolor))
 
     def __createRect(self, canvas: tk.Canvas, i: int, j: int, bgcolor: str) -> int:
