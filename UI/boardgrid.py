@@ -30,11 +30,12 @@ class boardgrid:
             for j in range(self.grid.col):
                 _ = self.__createRect(canvas, i, j, win.BoardColor)
 
-    def updateGrid(self, dir: Vector):
-        
-        pass
-
     def updateBoard(self, board: Matrix):
+        for i in range(board.row):
+            for j in range(board.col):
+                    if self.grid[j][i] != 0:
+                        self.canvas.delete(*self.grid[j][i])
+
         for i in range(board.row):
             for j in range(board.col):
                 num = board[j][i]
