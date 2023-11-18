@@ -28,6 +28,11 @@ class Vector:
         
         return Vector(self.x + other.x, self.y + other.y)
     
+    def __sub__(self, other):
+        if type(other) != Vector: 
+            raise TypeError(f"other should be Vector, not {type(other)}")
+        
+        return Vector(self.x - other.x, self.y - other.y)
 
 Zero = Vector(0)
 One = Vector(1)
