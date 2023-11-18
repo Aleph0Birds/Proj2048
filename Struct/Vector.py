@@ -27,6 +27,12 @@ class Vector:
         vec = self.copy()
         vec.normalize()
         return vec
+    
+    def __eq__(self, other) -> bool:
+        if type(other) != Vector: 
+            raise TypeError(f"other should be Vector, not {type(other)}")
+        
+        return self.x == other.x and self.y == other.y
 
     def copy(self):
         return Vector(self.x, self.y)
