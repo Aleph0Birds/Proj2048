@@ -43,6 +43,8 @@ class boardgrid:
                     fcolor = "white" if num > 2 else "#7a6e66"
                     self.grid[j][i] = (self.__createRect(self.canvas, i, j, color),
                                         self.__createFont(self.canvas, i, j, str(pow(2, num)), fcolor))
+                elif self.grid[j][i] != 0:
+                    self.canvas.delete(*self.grid[j][i])
 
     def __createRect(self, canvas: tk.Canvas, i: int, j: int, bgcolor: str) -> int:
         return canvas.create_rectangle(size.x * i + dp,
