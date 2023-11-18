@@ -15,7 +15,7 @@ def update() -> None:
         if win.isKeyUp(dir):
             board.gravity(dir)
             break
-    # start working here
+
 
 ### Task 10 ###
 def useUI():

@@ -25,7 +25,7 @@ class Board:
 
 
     def gravity(self, dir: Literal["Up", "Down", "Right", "Left"]) -> None:
-        """Defy the law of gravity within the board
+        """Defy the law of gravity within the board, the bottom changes regarding to the gravity
 
         Parameters
         ----------
@@ -38,6 +38,7 @@ class Board:
         vertical = -1 if dir == "Up" else 1 if dir == "Down" else 0
         horizontal = -1 if dir == "Left" else 1 if dir == "Right" else 0
         self.gravityDir = Vector(horizontal, vertical)
+        ### Task 4 ###
         self.update(horizontal, vertical)
 
     def update(self, signX: int, signY: int):
@@ -57,10 +58,10 @@ class Board:
                 movedTo = self.moveY(i, j, signY) if signX == 0 else self.moveX(i, j, signX)
 
                 ### move visual
-                # boardgrid.moveRect(i, j, movedTo)
+                self.boardgrid.moveRect(i, j, movedTo)
 
         self.boardgrid.updateBoard(self.mat)
-        print(self.mat)
+        #print(self.mat)
 
     def moveX(self, i: int, j: int, signX: int) -> tuple:
 
