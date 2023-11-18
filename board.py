@@ -60,7 +60,7 @@ class Board:
                 ### move visual
                 self.boardgrid.moveRect(i, j, movedTo)
 
-        self.boardgrid.updateBoard(self.mat)
+        #self.boardgrid.updateBoard(self.mat)
         #print(self.mat)
 
     def moveX(self, i: int, j: int, signX: int) -> tuple:
@@ -72,11 +72,13 @@ class Board:
             if row[_j] == 0: continue
             if row[_j] == row[j]:
                 # merge
+                row[j] = 0
                 row[_j] += 1
             else:
                 # stack
-                row[_j - signX] = row[j]
-            row[j] = 0
+                temp = row[j]
+                row[j] = 0
+                row[_j - signX] = temp
             return i, _j
         
         # touches ground
@@ -93,11 +95,13 @@ class Board:
             if self.mat[_i][j] == 0: continue
             if self.mat[_i][j] == self.mat[i][j]:
                 # merge
+                self.mat[i][j] = 0
                 self.mat[_i][j] += 1
             else:
                 # stack
-                self.mat[_i - signY][j] = self.mat[i][j]
-            self.mat[i][j] = 0
+                temp = self.mat[i][j]
+                self.mat[i][j] = 0
+                self.mat[_i - signY][j] = temp
             return _i, j
         
         # touches ground

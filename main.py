@@ -1,10 +1,12 @@
+from asyncio import run
+
 def main():
     useUI()
     initializeBoard()
-    win.mainloop()
+    run(win.mainloop())
 
 # range: 2^1 - 2^11+ -> 2 - 2048+
-def update() -> None:
+async def update() -> None:
     """called each tick by the window, by default 30 ticks per second"""
     if win.isKeyDown("Escape"):
         win.exit()
@@ -14,6 +16,8 @@ def update() -> None:
         # wait for user to release the keys
         if win.isKeyUp(dir):
             board.gravity(dir)
+            ## waits for the animation to complete ##
+            await boardGrid.waitAnimation(board.mat)
             break
 
 

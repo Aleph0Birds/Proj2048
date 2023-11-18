@@ -51,7 +51,7 @@ class window:
         for fx in func:
             fx()
 
-    def mainloop(self) -> None:
+    async def mainloop(self) -> None:
         """Main loop of the window, should be called after initialized, suppresses code execution outside update functions."""
 
         self.updating = True
@@ -64,7 +64,7 @@ class window:
                 self.win.update()
 
                 for fx in self.updateFx:
-                    fx()
+                    await fx()
 
                 self.__clearKeys__()
                 time.sleep(self.deltaTimeSeconds)
