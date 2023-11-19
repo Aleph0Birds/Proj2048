@@ -2,14 +2,15 @@ from Struct.Matrix import Matrix
 from Struct.Vector import Vector
 from UI.boardgrid import boardgrid
 from typing import Literal
+from random import choice
+from helper.utility import chance
 
 class Board:
     def __init__(self, boardgrid: boardgrid) -> None:
         ### Task 1 ###
         mat = Matrix(4, 4)
         ### Task 2 ###
-        from random import choice
-        from helper.utility import chance
+
         n = 0
         while n < 2:
             r, c = choice(range(4)), choice(range(4))
@@ -40,6 +41,15 @@ class Board:
         self.gravityDir = Vector(horizontal, vertical)
         ### Task 4 ###
         self.update(horizontal, vertical)
+
+    def generateNewTile(self) -> None:
+        while True:
+            r, c = choice(range(4)), choice(range(4))
+            if self.mat[r][c] != 0:
+                continue
+            
+            self.mat[r][c] = bool(chance(50)) + 1
+            break
 
     def update(self, signX: int, signY: int):
         # update ordered from bottom to top according to the gravity direction

@@ -56,10 +56,9 @@ class boardgrid:
                                         self.__createFont(self.canvas, i, j, str(pow(2, num)), fcolor))
 
 
-    async def waitAnimation(self, board: Matrix):
+    async def waitAnimation(self):
         await aio.gather(*self.tasks)
         self.tasks.clear()
-        self.updateBoard(board)
 
     def moveRect(self, x: int, y: int, movedTo: tuple[int, int]):
         # rect

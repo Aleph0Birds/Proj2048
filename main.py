@@ -17,7 +17,9 @@ async def update() -> None:
         if win.isKeyUp(dir):
             board.gravity(dir)
             ## waits for the animation to complete ##
-            await boardGrid.waitAnimation(board.mat)
+            await boardGrid.waitAnimation()
+            board.generateNewTile()
+            boardGrid.updateBoard(board.mat)
             break
 
 
