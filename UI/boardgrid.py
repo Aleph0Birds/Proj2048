@@ -5,7 +5,6 @@ from Struct.Matrix import Matrix
 from helper.MathHelper import lerpVec
 import tkinter as tk
 import tkinter.font as tkf
-import time
 import asyncio as aio
 
 padding = 36
@@ -15,9 +14,9 @@ dp = padding / 2
 size = Vector((win.WinWidth - padding) / 4)
 halfSize = size / 2
 
-MOVE_SPEED = 3000 # 100 for debugging positon
+MOVE_SPEED = 6000 # 100 for debugging positon
 '''The interval of animation, in screenUnit per seconds'''
-ANIMATION_TICKRATE = 120 # seem like it affects the movement speed
+ANIMATION_TICKRATE = 240 # seem like it affects the movement speed
 DELTA_TIME = 1 / ANIMATION_TICKRATE
 
 
@@ -88,7 +87,7 @@ class boardgrid:
                 curCoord = lerpVec(fromPos, toPos, curTime / totalTime)
             
             self.canvas.moveto(id, *curCoord)
-            self.canvas.update()
+            self.canvas.update_idletasks()
 
             await aio.sleep(dtime)
             curTime += dtime
@@ -103,7 +102,7 @@ class boardgrid:
                 curCoord = lerpVec(fromPos, toPos, curTime / totalTime)
             
             self.canvas.coords(id, *curCoord)
-            self.canvas.update()
+            self.canvas.update_idletasks()
 
             await aio.sleep(dtime)
             curTime += dtime
