@@ -74,12 +74,13 @@ class Board:
                 # merge
                 row[j] = 0
                 row[_j] += 1
+                return i, _j
             else:
                 # stack
                 temp = row[j]
                 row[j] = 0
                 row[_j - signX] = temp
-            return i, _j - signX
+                return i, _j - signX
         
         # touches ground
         row[_j] = row[j]
@@ -97,12 +98,13 @@ class Board:
                 # merge
                 self.mat[i][j] = 0
                 self.mat[_i][j] += 1
+                return _i, j
             else:
                 # stack
                 temp = self.mat[i][j]
                 self.mat[i][j] = 0
                 self.mat[_i - signY][j] = temp
-            return _i - signY, j
+                return _i - signY, j
         
         # touches ground
         self.mat[_i][j] = self.mat[i][j]
