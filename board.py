@@ -79,7 +79,7 @@ class Board:
                 temp = row[j]
                 row[j] = 0
                 row[_j - signX] = temp
-            return i, _j
+            return i, _j - signX
         
         # touches ground
         row[_j] = row[j]
@@ -102,7 +102,7 @@ class Board:
                 temp = self.mat[i][j]
                 self.mat[i][j] = 0
                 self.mat[_i - signY][j] = temp
-            return _i, j
+            return _i - signY, j
         
         # touches ground
         self.mat[_i][j] = self.mat[i][j]
