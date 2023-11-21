@@ -24,7 +24,7 @@ class Board:
         self.gravityDir = Vector.Zero
         self.score = 0
         self.bestScore = 0
-        self.breakNum = randint(5, 6)
+        self.breakNum = randint(7, 9)
 
 
     def gravity(self, dir: Literal["Up", "Down", "Right", "Left"]) -> None:
