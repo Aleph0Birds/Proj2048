@@ -15,18 +15,25 @@ async def update() -> None:
         ### Task 3 ###
         # wait for user to release the keys
         if win.isKeyUp(dir):
-            if board.isGameover():
-                s = board.bestScore = board.score
-                indicate.setBestScore(s)
-                win.showGameover()
-                break
             
             board.gravity(dir)
             ## waits for the animation to complete ##
             await boardGrid.waitAnimation()
+            
             board.generateNewTile()
             boardGrid.updateBoard(board.mat)
             indicate.updateScore(board.score)
+            
+            if board.isGameover():
+                s = board.bestScore = board.score
+                indicate.setBestScore(s)
+                if win.askRestart():
+                    board.restartBoard()    
+                    boardGrid.updateBoard(board.mat)
+                    indicate.updateScore(board.score)
+                    break
+                else: 
+                    win.exit()
               
             break
 

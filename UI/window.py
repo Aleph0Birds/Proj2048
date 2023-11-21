@@ -115,5 +115,5 @@ class window:
         self.updating = False
         self.win.destroy()
         
-    def showGameover(self):
-        mb.askquestion("bruh you died", "game over")
+    def askRestart(self) -> bool:
+        return mb.askretrycancel("Game ended!", "Game over! No more tile is available to combine.\n Restart?")

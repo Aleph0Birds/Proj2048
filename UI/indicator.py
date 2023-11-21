@@ -37,5 +37,5 @@ class indicator:
         self.curScoreWidget.config(text=f"Score\n{score}")
 
     def setBestScore(self, bestScore: int):
-        self.bestScoreWidget.config(text=f"Score\n{bestScore}")
+        self.bestScoreWidget.config(text=f"Best\n{bestScore}")
         

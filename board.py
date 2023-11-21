@@ -9,19 +9,13 @@ class Board:
     def __init__(self, boardgrid: boardgrid) -> None:
         ### Task 1 ###
         mat = Matrix(4, 4)
+        self.mat = mat
         ### Task 2 ###
-
-        n = 0
-        while n < 2:
-            r, c = choice(range(4)), choice(range(4))
-            if mat[r][c] != 0:
-                continue
-            
-            mat[r][c] = bool(chance(50)) + 1
-            n += 1
+        self.generateNewTile()
+        self.generateNewTile()
+        
         boardgrid.updateBoard(mat)
         self.boardgrid = boardgrid
-        self.mat = mat
         self.gravityDir = Vector.Zero
         self.score = 0
         self.bestScore = 0
@@ -144,3 +138,10 @@ class Board:
                     return False
         
         return True
+    
+    def restartBoard(self):
+        self.mat = Matrix(4, 4)
+        self.generateNewTile()
+        self.generateNewTile()
+        self.score = 0
+        self.gravityDir = Vector.Zero
