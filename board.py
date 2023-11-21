@@ -11,6 +11,8 @@ class Board:
         mat = Matrix(4, 4)
         self.mat = mat
         ### Task 2 ###
+        
+        self.max = 0
         self.generateNewTile()
         self.generateNewTile()
         
@@ -22,6 +24,7 @@ class Board:
         self.gravityDir = Vector.Zero
         self.score = 0
         self.bestScore = 0
+        self.breakNum = randint(5, 6)
 
 
     def gravity(self, dir: Literal["Up", "Down", "Right", "Left"]) -> None:
@@ -56,7 +59,8 @@ class Board:
             if self.mat[r][c] != 0:
                 continue
             
-            self.mat[r][c] = bool(chance(50)) + 1 if type == 0 else -1
+            self.mat[r][c] = n = bool(chance(50)) + 1 if type == 0 else -1
+            self.max = n if n > self.max else self.max
             break
 
     def update(self, signX: int, signY: int):
@@ -78,8 +82,20 @@ class Board:
                 ### move visual
                 self.boardgrid.moveRect(i, j, movedTo)
 
-        #self.boardgrid.updateBoard(self.mat)
-        #print(self.mat)
+        _max = 0
+        for i in range(4):
+            _max2 = max(self.mat[i])
+            if _max2 > _max:
+                _max = _max2
+        if _max > self.breakNum:
+            # breaks the obstacle
+            self.eradicateObstacle()
+
+    def eradicateObstacle(self):
+        for i in range(4):
+            for j in range(4):
+                if self.mat[i][j] == -1:
+                    self.mat[i][j] = 0
 
     def moveX(self, i: int, j: int, signX: int) -> tuple:
 
@@ -143,8 +159,9 @@ class Board:
         
         for i in range(4):
             for j in range(4):
-                neighbours = self.mat.getAdjacentValues(i, j)
                 this = self.mat[i][j]
+                if this == -1: continue
+                neighbours = self.mat.getAdjacentValues(i, j)
                 if this in neighbours:
                     return False
         
@@ -152,7 +169,10 @@ class Board:
     
     def restartBoard(self):
         self.mat = Matrix(4, 4)
+        self.max = 0
         self.generateNewTile()
         self.generateNewTile()
+        for _ in range(randint(1, 3)):
+            self.generateNewTile(-1)
         self.score = 0
         self.gravityDir = Vector.Zero
