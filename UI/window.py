@@ -109,9 +109,12 @@ class window:
         return bool(key) and (key in self.keysReleased)
     
     def __clearKeys__(self) -> None: self.keysPressed.clear(); self.keysReleased.clear()
+    
 
     def exit(self) -> None:
         """Exits the window update loop"""
+        from File import file
+        file.saveBestScore(self.board.bestScore)
         self.updating = False
         self.win.destroy()
         

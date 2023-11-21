@@ -1,8 +1,10 @@
 from asyncio import run
+from File import file
 
 def main():
     useUI()
-    initializeBoard()
+    score = file.readBestScore()
+    initializeBoard(score)
     run(win.mainloop())
 
 # range: 2^1 - 2^11+ -> 2 - 2048+
@@ -52,11 +54,14 @@ def useUI():
     indicate = indicator(win)
     win.subscribeUpdate(update)
 
-def initializeBoard():
+def initializeBoard(score: int):
     ### Task 1 + Task 2 ###
     from board import Board
     global board 
     board = Board(boardGrid)
+    board.bestScore = score
+    win.board = board
+    indicate.setBestScore(score)
 
 if __name__ == "__main__":
     main()
