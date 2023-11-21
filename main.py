@@ -27,8 +27,10 @@ async def update() -> None:
             indicate.updateScore(board.score)
             
             if board.isGameover():
-                s = board.bestScore = board.score
-                indicate.setBestScore(s)
+                if board.score > board.bestScore:
+                    board.bestScore = board.score
+
+                indicate.setBestScore(board.bestScore)
                 if win.askRestart():
                     board.restartBoard()    
                     boardGrid.updateBoard(board.mat)
