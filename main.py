@@ -18,8 +18,18 @@ async def update() -> None:
             board.gravity(dir)
             ## waits for the animation to complete ##
             await boardGrid.waitAnimation()
+            
+            if board.isGameover():
+                s = board.bestScore = board.score
+                indicate.setBestScore(s)
+                win.showGameover()
+                break
+            
             board.generateNewTile()
             boardGrid.updateBoard(board.mat)
+            indicate.updateScore(board.score)
+            
+                
             break
 
 

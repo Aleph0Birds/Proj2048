@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox as mb
 
 WinWidth: int = 450
 WinHeight: int = 600
@@ -113,3 +114,6 @@ class window:
         """Exits the window update loop"""
         self.updating = False
         self.win.destroy()
+        
+    def showGameover(self):
+        mb.askquestion("bruh you died", "game over")

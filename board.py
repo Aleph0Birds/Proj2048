@@ -23,6 +23,8 @@ class Board:
         self.boardgrid = boardgrid
         self.mat = mat
         self.gravityDir = Vector.Zero
+        self.score = 0
+        self.bestScore = 0
 
 
     def gravity(self, dir: Literal["Up", "Down", "Right", "Left"]) -> None:
@@ -43,6 +45,7 @@ class Board:
         self.update(horizontal, vertical)
 
     def generateNewTile(self) -> None:
+        if not self.haveSpace(): return
         while True:
             r, c = choice(range(4)), choice(range(4))
             if self.mat[r][c] != 0:
@@ -84,6 +87,8 @@ class Board:
                 # merge
                 row[j] = 0
                 row[_j] += 1
+                ### Task 7 ###
+                self.score += 2 ** row[_j]
                 return i, _j
             else:
                 # stack
@@ -108,6 +113,7 @@ class Board:
                 # merge
                 self.mat[i][j] = 0
                 self.mat[_i][j] += 1
+                self.score += 2 ** self.mat[_i][j]
                 return _i, j
             else:
                 # stack
@@ -120,3 +126,19 @@ class Board:
         self.mat[_i][j] = self.mat[i][j]
         self.mat[i][j] = 0 
         return _i, j
+    
+    def haveSpace(self) -> bool:
+        for i in range(4):
+            if 0 in self.mat[i]: return True
+        return False
+    
+    def isGameover(self) -> bool:
+        if self.haveSpace():
+            return False
+        
+        for i in range(4):
+            for j in range(4):
+                if self.mat[i][j] in self.mat.getAdjacentValues(i, j):
+                    return False
+        
+        return True

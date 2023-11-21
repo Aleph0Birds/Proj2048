@@ -181,6 +181,27 @@ class Matrix:
             for j in range(self.col):
                 mat[j][i] = self.mat[i][j]
         return mat
+    
+    def getAdjacentValues(self, i: int, j: int) -> list:
+        l = []
+        temp = i + 1
+        compare = self.row
+        for x in range(2):
+            # skips out of bound index
+            if temp < 0 or temp >= compare: continue
+            if x < 2:
+                l.append(self.mat[temp][j])
+            temp = i - 1       
+        temp = j + 1
+        compare = self.col
+        for x in range(2):
+            # skips out of bound index
+            if temp < 0 or temp >= compare: continue
+            if x < 2:
+                l.append(self.mat[temp][j])
+            temp = j - 1
+        return l
+        
                 
     def __getitem__(self, key) -> list:
         return self.mat[key] 
