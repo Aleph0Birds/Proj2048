@@ -138,7 +138,9 @@ class Board:
         
         for i in range(4):
             for j in range(4):
-                if self.mat[i][j] in self.mat.getAdjacentValues(i, j):
+                neighbours = self.mat.getAdjacentValues(i, j)
+                this = self.mat[i][j]
+                if this in neighbours:
                     return False
         
         return True

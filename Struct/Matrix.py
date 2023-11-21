@@ -189,16 +189,14 @@ class Matrix:
         for x in range(2):
             # skips out of bound index
             if temp < 0 or temp >= compare: continue
-            if x < 2:
-                l.append(self.mat[temp][j])
+            l.append(self.mat[temp][j])
             temp = i - 1       
         temp = j + 1
         compare = self.col
         for x in range(2):
             # skips out of bound index
             if temp < 0 or temp >= compare: continue
-            if x < 2:
-                l.append(self.mat[temp][j])
+            l.append(self.mat[i][temp])
             temp = j - 1
         return l
         
