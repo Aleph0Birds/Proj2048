@@ -2,7 +2,7 @@ from Struct.Matrix import Matrix
 from Struct.Vector import Vector
 from UI.boardgrid import boardgrid
 from typing import Literal
-from random import choice
+from random import choice, randint
 from helper.utility import chance
 
 class Board:
@@ -13,6 +13,9 @@ class Board:
         ### Task 2 ###
         self.generateNewTile()
         self.generateNewTile()
+        
+        for _ in range(randint(1, 3)):
+            self.generateNewTile(-1)
         
         boardgrid.updateBoard(mat)
         self.boardgrid = boardgrid
@@ -38,14 +41,22 @@ class Board:
         ### Task 4 ###
         self.update(horizontal, vertical)
 
-    def generateNewTile(self) -> None:
+    def generateNewTile(self, type: int = 0) -> None:
+        """Generates new tiles on the board
+
+        Parameters
+        ----------
+        type : int, optional
+            type of the tile, -1 represents obstacle, by default 0
+        """
         if not self.haveSpace(): return
+        
         while True:
             r, c = choice(range(4)), choice(range(4))
             if self.mat[r][c] != 0:
                 continue
             
-            self.mat[r][c] = bool(chance(50)) + 1
+            self.mat[r][c] = bool(chance(50)) + 1 if type == 0 else -1
             break
 
     def update(self, signX: int, signY: int):
@@ -58,8 +69,8 @@ class Board:
 
         for i in iWay:
             for j in jWay:
-                #ignores empty tiles
-                if self.mat[i][j] == 0: continue
+                #ignores empty tiles and obstacles
+                if self.mat[i][j] <= 0: continue
 
                 # move the tile according to the direction
                 movedTo = self.moveY(i, j, signY) if signX == 0 else self.moveX(i, j, signX)

@@ -33,7 +33,6 @@ async def update() -> None:
                     board.restartBoard()    
                     boardGrid.updateBoard(board.mat)
                     indicate.updateScore(board.score)
-                    break
                 else: 
                     win.exit()
               

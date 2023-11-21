@@ -50,8 +50,8 @@ class boardgrid:
             for j in range(board.col):
                 num = board[j][i]
                 if num != 0:
-                    color = Color.getColor(num)
-                    fcolor = "white" if num > 2 else "#7a6e66"
+                    color = Color.getColor(num) if num > 0 else "black"
+                    fcolor = "white" if num > 2 else "#7a6e66" if num > 0 else ""
                     self.grid[j][i] = (self.__createRect(self.canvas, i, j, color, win.BorderColor, borderWidth),
                                         self.__createFont(self.canvas, i, j, str(pow(2, num)), fcolor))
 
