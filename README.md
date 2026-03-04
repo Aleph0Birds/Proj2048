@@ -3,4 +3,4 @@ Comp1002 Project 2048
 
 2048 implemented in python
 
-![Showcase](./Proj2048.png)
+![Showcase](./Proj2048.gif)
